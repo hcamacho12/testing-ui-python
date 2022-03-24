@@ -10,14 +10,10 @@ instance_url = "https://testhomer18.infocyte.com"
 super_password = os.environ.get('HUNT_PASSWORD')
 test_user = "homer.camacho3@gmail.com"
 
-def test_app_login():
-    # new instance of firefox webdriver
-    pytest.driver.get(instance_url)
-
-    # wait for element to be present with 30 sec timeout
-    el = WebDriverWait(pytest.driver, 30).until(
-        EC.presence_of_element_located((By.ID, "email"))
-        )
+@pytest.mark.run('first')
+def test_app_login(wait_for_element_by_id, login_ui):
+    login_ui
+    wait_for_element_by_id("email")
 
     time.sleep(5)
 
@@ -26,7 +22,7 @@ def test_app_login():
     pytest.driver.find_element(By.ID, "password").send_keys(super_password)
     pytest.driver.find_element(By.ID, "btn-login").click()
 
-    time.sleep(30)
+    time.sleep(20)
 
     #display current url post login. should always be dashboard
     expected_land_page = f"{instance_url}/dashboard"
