@@ -7,7 +7,7 @@ import os
 import pytest
 
 instance_url = "https://testhomer18.infocyte.com"
-super_password = "Hail2Infocyte!"
+super_password = os.environ.get('HUNT_PASSWORD')
 test_user = "homer.camacho3@gmail.com"
 
 def test_app_login():
